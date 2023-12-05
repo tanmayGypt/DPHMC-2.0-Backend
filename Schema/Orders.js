@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
-
-module.exports = {
+const mongoose = require("mongoose");
+const orders = {
   User: ObjectId,
   Product: ObjectId,
   Ordered_Date: {
@@ -37,3 +37,7 @@ module.exports = {
     default: 0,
   },
 };
+
+const OrdersSchema = mongoose.model("Orders", orders);
+
+module.exports = OrdersSchema;

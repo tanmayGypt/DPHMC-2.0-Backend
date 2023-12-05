@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb");
-
+const mongoose = require("mongoose");
 const Appointments = {
   user: ObjectId,
   FullName: {
@@ -28,4 +28,5 @@ const Appointments = {
   },
 };
 
-module.exports = Appointments;
+const AppointmentsSchema = mongoose.model("Appointment", Appointments);
+module.exports = AppointmentsSchema;

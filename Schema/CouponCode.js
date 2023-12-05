@@ -1,4 +1,5 @@
-module.exports = {
+const mongoose = require("mongoose");
+const Coupon = {
   CouponCode: {
     type: String,
     require: true,
@@ -12,3 +13,5 @@ module.exports = {
     default: 0,
   },
 };
+const CouponCodeSchema = mongoose.model("Coupon Code", Coupon);
+module.exports = CouponCodeSchema;

@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
-
-module.exports = {
+const mongoose = require("mongoose");
+const faq = {
   product: ObjectId,
   Question: {
     type: String,
@@ -15,3 +15,5 @@ module.exports = {
     default: Date.now(),
   },
 };
+const FaqSchema = mongoose.model("Faq", faq);
+module.exports = FaqSchema;

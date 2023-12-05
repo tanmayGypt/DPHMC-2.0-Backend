@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
-
-module.exports = {
+const mongoose = require("mongoose");
+const blogs = {
   Title: {
     type: String,
     required: true,
@@ -21,3 +21,6 @@ module.exports = {
     type: ObjectId,
   },
 };
+
+const BlogSchema = mongoose.model("Blogs", blogs);
+module.exports = BlogSchema;

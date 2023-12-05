@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
-
-module.exports = {
+const mongoose = require("mongoose");
+const cartItems = {
   User: ObjectId,
   Product: ObjectId,
   AddedDate: {
@@ -17,3 +17,7 @@ module.exports = {
     default: 0,
   },
 };
+
+const CartItemSchema = mongoose.model("CartItems", cartItems);
+
+module.exports = CartItemSchema;

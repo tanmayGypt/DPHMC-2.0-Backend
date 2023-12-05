@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
-
-module.exports = {
+const mongoose = require("mongoose");
+const product_reviews = {
   User: ObjectId,
   Product: ObjectId,
   Product_Image: {
@@ -23,3 +23,8 @@ module.exports = {
     require: true,
   },
 };
+const Product_Review_Schema = mongoose.model(
+  "Product Reviews",
+  product_reviews
+);
+module.exports = Product_Review_Schema;

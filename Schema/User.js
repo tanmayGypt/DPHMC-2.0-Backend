@@ -1,4 +1,5 @@
-const UserSchema = {
+const mongoose = require("mongoose");
+const User = {
   FullName: {
     type: String,
     require: true,
@@ -56,5 +57,5 @@ const UserSchema = {
     default: false,
   },
 };
-
+const UserSchema = mongoose.model("Users", User);
 module.exports = UserSchema;

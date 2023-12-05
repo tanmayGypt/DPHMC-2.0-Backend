@@ -1,4 +1,5 @@
-const ProductSchema = {
+const mongoose = require("mongoose");
+const Product = {
   product_image: [],
   product_id: {
     type: String,
@@ -21,4 +22,5 @@ const ProductSchema = {
   },
 };
 
-module.exports = ProductSchema;
+const ProductsSchema = mongoose.model("Products", Product);
+module.exports = ProductsSchema;

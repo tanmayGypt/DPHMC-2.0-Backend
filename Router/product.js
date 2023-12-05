@@ -1,66 +1,64 @@
 const { default: mongoose } = require("mongoose");
-
+const ProductsSchema = require("../Schema/Products");
 module.exports = (function () {
   let router = require("express").Router();
 
-  router.get("/Products", (req, res) => {
-    ProductsSchema.find().then((Products) => {
-      res.json(Products);
-    });
+  router.get("/", (req, res) => {
+    try {
+      ProductsSchema.find().then((Products) => {
+        res.status(200).json(Products);
+      });
+    } catch (e) {
+      res.status(500).json(e);
+    }
   });
 
-  router.post("/Products", (req, res) => {
-    const {
-      product_image,
-      product_id,
-      product_title,
-      price,
-      discounted_price,
-    } = req;
-    const doc = new ProductsSchema({
-      product_image,
-      product_id,
-      product_title,
-      price,
-      discounted_price,
-    });
+  router.post("/", (req, res) => {
+    try {
+      const {
+        product_image,
+        product_id,
+        product_title,
+        price,
+        discounted_price,
+      } = req;
+      const doc = new ProductsSchema({
+        product_image,
+        product_id,
+        product_title,
+        price,
+        discounted_price,
+      });
+      const savedItem = doc.save();
+      res.status(200).json(savedItem);
+    } catch (e) {
+      res.status(500).json(e);
+    }
   });
 
-  // product_image: [],
-  // product_id: {
-  //   type: String,
-  //   require: true,
-  //   unique: true,
-  // },
-  // product_title: {
-  //   type: String,
-  //   require: true,
-  //   unique: false,
-  // },
-  // Date: { type: Date, default: Date.now },
-  // price: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // discounted_price: {
-  //   type: Number,
-  //   required: true,
-  // },
-
-  router.get("/Products/:productid", (req, res) => {
-    const obj = ProductsSchema.findById(req.params.productid);
-    res.json(obj);
+  router.get("/:productid", (req, res) => {
+    try {
+      const obj = ProductsSchema.findById(req.params.productid);
+      res.status(200).json(obj);
+    } catch (e) {
+      res.status(500).json(e);
+    }
   });
-  router.put("/Products/:productid", (req, res) => {
-    const obj = ProductsSchema.findById(req.params.productid);
-    const bodyObject = req.body;
-    obj.product_image = bodyObject.product_image;
-    obj.discounted_price = bodyObject.discounted_price;
-    obj.price = bodyObject.price;
-    obj.product_title = bodyObject.product_title;
-    obj.product_id = bodyObject.product_id;
+  router.put("/:productid", (req, res) => {
+    try {
+      const obj = ProductsSchema.findById(req.params.productid);
+      const bodyObject = req.body;
+      obj.product_image = bodyObject.product_image;
+      obj.discounted_price = bodyObject.discounted_price;
+      obj.price = bodyObject.price;
+      obj.product_title = bodyObject.product_title;
+      obj.product_id = bodyObject.product_id;
 
-    obj.save();
+      const savedItem = obj.save();
+      res.status(200).json(savedItem);
+    } catch (e) {
+      res.status(500).json(e);
+    }
   });
   return router;
 })();
