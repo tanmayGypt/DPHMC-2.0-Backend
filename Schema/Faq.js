@@ -10,7 +10,7 @@ module.exports = {
     type: String,
     default: "NA",
   },
-  Date: {
+  date: {
     type: Date,
     default: Date.now(),
   },

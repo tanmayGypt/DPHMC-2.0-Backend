@@ -11,7 +11,7 @@ const Appointments = {
     require: true,
   },
   Email: { type: String, trim: true, require: true },
-  Date: { type: Date, default: Date.now },
+  date: { type: Date, default: Date.now },
   Time: String,
   Message: String,
   Mobile_OTP_Verified: {
