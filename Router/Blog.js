@@ -1,3 +1,5 @@
+const { description } = require("../Schema/Blogs");
+
 module.exports = (function () {
   "use strict";
   let route = require("express").Router();
@@ -16,6 +18,16 @@ module.exports = (function () {
       imageUrl,
       User,
     });
+  });
+
+  route.put("/AllBlogs/:id", (req, res) => {
+    const doc = BlogSchema.findById(req.params.id);
+    const obj = req.body;
+    obj.Title = doc.Title;
+    obj.date = doc.description;
+    obj.imageUrl = doc.imageUrl;
+    obj.User = doc.User;
+    obj.save();
   });
 
   return route;

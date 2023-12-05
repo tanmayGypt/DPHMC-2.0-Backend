@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = (function () {
   let router = require("express").Router();
 
   router.get("/Faqs/:Productid", (req, res) => {
@@ -23,4 +23,4 @@ module.exports = function () {
   });
 
   return router;
-};
+})();

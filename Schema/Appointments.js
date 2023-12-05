@@ -22,6 +22,10 @@ const Appointments = {
     type: Boolean,
     default: false,
   },
+  img: {
+    type: String,
+    default: "",
+  },
 };
 
 module.exports = Appointments;

@@ -25,6 +25,7 @@ module.exports = (function () {
       date,
       Time,
       Message,
+      img,
     });
     await doc.save();
   });

@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = (function () {
   let route = require("express").Router();
 
   route.get("/ProductReview/:Productid", (req, res) => {
@@ -7,7 +7,7 @@ module.exports = function () {
     });
   });
   route.get("/ProductReviews", (req, res) => {
-    Product_Review_Schema.findOne().then((All_Product_Reviews) => {
+    Product_Review_Schema.find().then((All_Product_Reviews) => {
       res.json(All_Product_Reviews);
     });
   });
@@ -39,5 +39,16 @@ module.exports = function () {
     }
   });
 
+  route.put("/ProductReview/:UserId/:ProductId", async (req, res) => {
+    const bodyObject = req.body;
+    const obj = Product_Review_Schema.find({
+      _id: req.params.UserId,
+      Product: req.params.ProductId,
+    });
+    obj.title = bodyObject.title;
+    obj.Review = bodyObject.Review;
+    obj.save();
+  });
+
   return route;
-};
+})();
