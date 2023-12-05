@@ -20,6 +20,14 @@ const Product = {
     type: Number,
     required: true,
   },
+  isAvailable: {
+    type: Boolean,
+    default: true,
+  },
+  isVisible: {
+    type: Boolean,
+    default: true,
+  },
 };
 
 const ProductsSchema = mongoose.model("Products", Product);

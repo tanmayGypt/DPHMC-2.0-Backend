@@ -28,6 +28,8 @@ module.exports = (function () {
         product_title,
         price,
         discounted_price,
+        isAvailable,
+        isVisible,
       });
       const savedItem = doc.save();
       res.status(200).json(savedItem);
@@ -53,6 +55,8 @@ module.exports = (function () {
       obj.price = bodyObject.price;
       obj.product_title = bodyObject.product_title;
       obj.product_id = bodyObject.product_id;
+      obj.isAvailable = bodyObject.isAvailable;
+      obj.isVisible = bodyObject.isVisible;
 
       const savedItem = obj.save();
       res.status(200).json(savedItem);
