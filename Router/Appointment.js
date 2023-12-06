@@ -4,20 +4,29 @@ module.exports = (function () {
   let route = require("express").Router();
 
   route.get("/:Userid", (req, res) => {
-    AppointmentsSchema.findById(req.params.Userid).then((UserAppointments) => {
-      res.json(UserAppointments);
-    });
+    try {
+      AppointmentsSchema.find({ user: req.params.Userid }).then(
+        (UserAppointments) => {
+          res.status(200).json(UserAppointments);
+        }
+      );
+    } catch (e) {
+      res.status(500).json(e);
+    }
   });
-
   route.get("/", (req, res) => {
-    AppointmentsSchema.find().then((ShowAllAppointments) => {
-      res.json(ShowAllAppointments);
-    });
+    try {
+      AppointmentsSchema.find().then((ShowAllAppointments) => {
+        res.status(200).json(ShowAllAppointments);
+      });
+    } catch (e) {
+      res.status(500).json(e);
+    }
   });
 
   route.post("/", async (req, res) => {
     try {
-      const { user, FullName, Phone, Email, date, Time, Message } = req;
+      const { user, FullName, Phone, Email, date, Time, Message } = req.body;
 
       const doc = new AppointmentsSchema({
         user,
@@ -29,10 +38,8 @@ module.exports = (function () {
         Message,
         img,
       });
-      await doc.save();
-      res.status(200).json({
-        message: "Quary Successfull",
-      });
+      const savedObject = await doc.save();
+      res.status(200).json(savedObject);
     } catch (error) {
       res.status(500).json(error);
     }

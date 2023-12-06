@@ -6,13 +6,18 @@ module.exports = (function () {
   let route = require("express").Router();
 
   route.get("/", (req, res) => {
-    BlogSchema.find().then((Blogs) => {
-      res.json(Blogs);
-    });
+    try {
+      BlogSchema.find().then((Blogs) => {
+        res.status(200).json(Blogs);
+      });
+    } catch (e) {
+      res.status(500).json(e);
+    }
   });
 
   route.post("/", async (req, res) => {
     try {
+      const { Title, date, description, imageUrl, User } = req.body;
       const doc = new BlogSchema({
         Title,
         date,
@@ -21,10 +26,8 @@ module.exports = (function () {
         User,
       });
 
-      await doc.save();
-      res.status(200).json({
-        message: "Quary Successfull",
-      });
+      const savedObject = await doc.save();
+      res.status(200).json(savedObject);
     } catch (error) {
       res.send(500).json(error);
     }
@@ -38,10 +41,8 @@ module.exports = (function () {
       obj.date = doc.description;
       obj.imageUrl = doc.imageUrl;
       obj.User = doc.User;
-      await obj.save();
-      res.status(200).json({
-        message: "Quary Successfull",
-      });
+      const savedItem = await obj.save();
+      res.status(200).json(savedItem);
     } catch (error) {
       res.send(500).json(error);
     }

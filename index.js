@@ -23,7 +23,7 @@ const OrdersRoute = require("./Router/Orders");
 const ProductReviewRoute = require("./Router/Product_Review");
 const UserRoute = require("./Router/User");
 const ProductRoute = require("./Router/product");
-
+const LoginRoute = require("./Router/Login");
 const app = express();
 require("dotenv").config();
 app.use(express.json());
@@ -50,6 +50,7 @@ app.use("/Orders", OrdersRoute);
 app.use("/ProductReviews", ProductReviewRoute);
 app.use("/Products", ProductRoute);
 app.use("/Users", UserRoute);
+app.use("/Login", LoginRoute);
 
 const port = 8000 || process.env.PORT;
 

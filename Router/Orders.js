@@ -19,6 +19,17 @@ module.exports = (function () {
 
   router.post("/", async (req, res) => {
     try {
+      const {
+        User,
+        Product,
+        Delivered_Date,
+        Payment_Mode,
+        Payment_Details,
+        reference_id,
+        Delivery_Status,
+        Quantity,
+        Discount,
+      } = req.body;
       const obj = new OrdersSchema({
         User,
         Product,

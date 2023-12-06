@@ -21,7 +21,7 @@ module.exports = (function () {
         product_title,
         price,
         discounted_price,
-      } = req;
+      } = req.body;
       const doc = new ProductsSchema({
         product_image,
         product_id,

@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 module.exports = (function () {
   let router = require("express").Router();
   const UserSchema = require("../Schema/User");
@@ -20,13 +21,55 @@ module.exports = (function () {
     }
   });
 
-  router.put("/:id", (req, res) => {
+  router.post("/", async (req, res) => {
+    try {
+      const {
+        FullName,
+        Password,
+        ProfilePhoto,
+        Phone,
+
+        Email,
+        DOB,
+        Pincode,
+        Landmark,
+        cart,
+        Orders,
+        OTP_Verified,
+        Total_Appointment_Booked,
+        Appointments,
+        IsBlocked,
+      } = req.body;
+      const NewUser = new UserSchema({
+        FullName,
+        Password,
+        ProfilePhoto,
+        Phone,
+        Account_Created_On,
+        Email,
+        DOB,
+        Pincode,
+        Landmark,
+        cart,
+        Orders,
+        OTP_Verified,
+        Total_Appointment_Booked,
+        Appointments,
+      });
+      const savedUser = await NewUser.save();
+      res.status(200).json(savedUser);
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  });
+
+  router.put("/:id", async (req, res) => {
     try {
       const obj = UserSchema.findById(req.params.id);
       const bodyObject = req.body;
       obj.Password = bodyObject.Password;
       obj.FullName = bodyObject.FullName;
-      obj.ProfilePhoto = bodyObject.ProfilePhoto;
+      // obj.ProfilePhoto = bodyObject.ProfilePhoto;
       obj.Phone = bodyObject.Phone;
       obj.Email = bodyObject.Email;
       obj.DOB = bodyObject.DOB;
@@ -39,9 +82,11 @@ module.exports = (function () {
       obj.LandMark = bodyObject.LandMark;
       obj.Pincode = bodyObject.Pincode;
       obj.Address = bodyObject.Address;
-      const updated_user = obj.save();
-      res.status(200).json(updated_user);
+
+      console.log(obj);
+      res.status(200).json(obj);
     } catch (e) {
+      console.log(e);
       res.status(500).json(e);
     }
   });

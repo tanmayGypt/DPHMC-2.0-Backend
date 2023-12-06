@@ -9,10 +9,8 @@ module.exports = (function () {
 
   router.delete("/:Id", async (req, res) => {
     try {
-      FaqSchema.findOneAndDelete({ _id: req.params.Id });
-      res.status(200).json({
-        message: "Quary Successfull",
-      });
+      const deletedItem = FaqSchema.findOneAndDelete({ _id: req.params.Id });
+      res.status(200).json(deletedItem);
     } catch (e) {
       res.status(500).json(e);
     }

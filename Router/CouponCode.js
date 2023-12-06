@@ -13,6 +13,7 @@ module.exports = (function () {
 
   router.post("/", async (req, res) => {
     try {
+      const { CouponCode, Issued_Date, Discount_price } = req.body;
       const doc = new CouponCodeSchema({
         CouponCode,
         Issued_Date,

@@ -10,10 +10,9 @@ const User = {
   },
   ProfilePhoto: {
     type: String,
-    require: true,
   },
   Phone: {
-    type: Number,
+    type: String,
     require: true,
     unique: true,
   },
@@ -53,7 +52,6 @@ const User = {
   },
   IsBlocked: {
     type: Boolean,
-    require: true,
     default: false,
   },
 };

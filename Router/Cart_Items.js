@@ -5,29 +5,29 @@ module.exports = (function () {
   router.get("/:Userid", (req, res) => {
     try {
       CartItemSchema.findById(req.params.Userid).then((CartItems) => {
-        res.json(CartItems);
+        res.status(200).json(CartItems);
       });
     } catch (error) {
-      res.json(error);
+      res.status(500).json(error);
     }
   });
 
   router.get("/", (req, res) => {
     try {
       CartItemSchema.find({}).then((CartItems) => {
-        res.json(CartItems);
+        res.status(200).json(CartItems);
       });
     } catch (error) {
-      res.json(error);
+      res.statu(500).json(error);
     }
   });
 
   router.post("/", async (req, res) => {
     try {
+      const { User, Product, Quantity, Shipping_Charges } = req.body;
       const obj = new CartItemSchema({
         User,
         Product,
-
         Quantity,
         Shipping_Charges,
       });
@@ -35,12 +35,20 @@ module.exports = (function () {
       const saved = await obj.save();
       res.status(200).send(saved);
     } catch (error) {
+      console.log(error);
       res.status(500).json(error);
     }
   });
 
   router.delete("/:CartItemId", async (req, res) => {
-    CartItemSchema.findByIdAndDelete(req.params.CartItemId);
+    try {
+      const deletedItem = CartItemSchema.findByIdAndDelete(
+        req.params.CartItemId
+      );
+      res.status(200).json(deletedItem);
+    } catch (e) {
+      res.status(500).json(e);
+    }
   });
   return router;
 })();
