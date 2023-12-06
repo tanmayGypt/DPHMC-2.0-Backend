@@ -1,3 +1,4 @@
+const verifyToken = require("../auth");
 module.exports = (function () {
   let router = require("express").Router();
   const FaqSchema = require("../Schema/Faq");
@@ -7,7 +8,7 @@ module.exports = (function () {
     });
   });
 
-  router.delete("/:Id", async (req, res) => {
+  router.delete("/:Id", verifyToken, async (req, res) => {
     try {
       const deletedItem = FaqSchema.findOneAndDelete({ _id: req.params.Id });
       res.status(200).json(deletedItem);
@@ -16,7 +17,7 @@ module.exports = (function () {
     }
   });
 
-  router.post("/", async (req, res) => {
+  router.post("/", verifyToken, async (req, res) => {
     try {
       const { product, Question, Answer, date } = req;
       const doc = new FaqSchema({

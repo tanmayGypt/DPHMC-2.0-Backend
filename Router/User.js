@@ -1,8 +1,9 @@
+const verifyToken = require("../auth");
 const mongoose = require("mongoose");
 module.exports = (function () {
   let router = require("express").Router();
   const UserSchema = require("../Schema/User");
-  router.get("/", (req, res) => {
+  router.get("/", verifyToken, (req, res) => {
     try {
       UserSchema.find().then((AllUsers) => {
         res.status(200).json(AllUsers);
@@ -12,7 +13,7 @@ module.exports = (function () {
     }
   });
 
-  router.delete("/:id", (req, res) => {
+  router.delete("/:id", verifyToken, (req, res) => {
     try {
       const deleteduser = UserSchema.findByIdAndDelete(req.params.id);
       res.status(200).json(deleteduser);
@@ -63,7 +64,7 @@ module.exports = (function () {
     }
   });
 
-  router.put("/:id", async (req, res) => {
+  router.put("/:id", verifyToken, async (req, res) => {
     try {
       const obj = UserSchema.findById(req.params.id);
       const bodyObject = req.body;

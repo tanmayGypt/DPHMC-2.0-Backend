@@ -1,3 +1,4 @@
+const verifyToken = require("../auth");
 const { default: mongoose } = require("mongoose");
 const ProductsSchema = require("../Schema/Products");
 module.exports = (function () {

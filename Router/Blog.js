@@ -1,3 +1,4 @@
+const verifyToken = require("../auth");
 const { description } = require("../Schema/Blogs");
 
 module.exports = (function () {
@@ -5,7 +6,7 @@ module.exports = (function () {
   ("use strict");
   let route = require("express").Router();
 
-  route.get("/", (req, res) => {
+  route.get("/", verifyToken, (req, res) => {
     try {
       BlogSchema.find().then((Blogs) => {
         res.status(200).json(Blogs);
@@ -15,7 +16,7 @@ module.exports = (function () {
     }
   });
 
-  route.post("/", async (req, res) => {
+  route.post("/", verifyToken, async (req, res) => {
     try {
       const { Title, date, description, imageUrl, User } = req.body;
       const doc = new BlogSchema({
@@ -33,7 +34,7 @@ module.exports = (function () {
     }
   });
 
-  route.put("/:id", async (req, res) => {
+  route.put("/:id", verifyToken, async (req, res) => {
     try {
       const doc = BlogSchema.findById(req.params.id);
       const obj = req.body;

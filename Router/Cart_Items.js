@@ -1,8 +1,9 @@
+const verifyToken = require("../auth");
 module.exports = (function () {
   const CartItemSchema = require("../Schema/CartItems");
   let router = require("express").Router();
 
-  router.get("/:Userid", (req, res) => {
+  router.get("/:Userid", verifyToken, (req, res) => {
     try {
       CartItemSchema.findById(req.params.Userid).then((CartItems) => {
         res.status(200).json(CartItems);
@@ -12,7 +13,7 @@ module.exports = (function () {
     }
   });
 
-  router.get("/", (req, res) => {
+  router.get("/", verifyToken, (req, res) => {
     try {
       CartItemSchema.find({}).then((CartItems) => {
         res.status(200).json(CartItems);
@@ -22,7 +23,7 @@ module.exports = (function () {
     }
   });
 
-  router.post("/", async (req, res) => {
+  router.post("/", verifyToken, async (req, res) => {
     try {
       const { User, Product, Quantity, Shipping_Charges } = req.body;
       const obj = new CartItemSchema({
@@ -40,7 +41,7 @@ module.exports = (function () {
     }
   });
 
-  router.delete("/:CartItemId", async (req, res) => {
+  router.delete("/:CartItemId", verifyToken, async (req, res) => {
     try {
       const deletedItem = CartItemSchema.findByIdAndDelete(
         req.params.CartItemId

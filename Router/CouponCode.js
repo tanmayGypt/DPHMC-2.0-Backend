@@ -1,3 +1,4 @@
+const verifyToken = require("../auth");
 module.exports = (function () {
   let router = require("express").Router();
   const CouponCodeSchema = require("../Schema/CouponCode");
@@ -11,7 +12,7 @@ module.exports = (function () {
     }
   });
 
-  router.post("/", async (req, res) => {
+  router.post("/", verifyToken, async (req, res) => {
     try {
       const { CouponCode, Issued_Date, Discount_price } = req.body;
       const doc = new CouponCodeSchema({
@@ -27,7 +28,7 @@ module.exports = (function () {
     }
   });
 
-  router.put("/:id", async (req, res) => {
+  router.put("/:id", verifyToken, async (req, res) => {
     try {
       const obj = CouponCodeSchema.findById(req.params.id);
       const bodyObject = req.body;
@@ -43,7 +44,7 @@ module.exports = (function () {
     }
   });
 
-  router.delete("/:id", async (req, res) => {
+  router.delete("/:id", verifyToken, async (req, res) => {
     CouponCodeSchema.findByIdAndDelete(req.params.id);
   });
 })();

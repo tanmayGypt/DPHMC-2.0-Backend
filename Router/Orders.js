@@ -1,8 +1,9 @@
+const verifyToken = require("../auth");
 module.exports = (function () {
   let router = require("express").Router();
   const OrdersSchema = require("../Schema/Orders");
 
-  router.get("/:Userid", (req, res) => {
+  router.get("/:Userid", verifyToken, (req, res) => {
     OrdersSchema.findById(req.params.Userid).then((OrderItems) => {
       if (!OrderItems) {
         res.send("Not found");
@@ -11,13 +12,13 @@ module.exports = (function () {
     });
   });
 
-  router.get("/", (req, res) => {
+  router.get("/", verifyToken, (req, res) => {
     OrdersSchema.find().then((AllOrders) => {
       res.json(AllOrders);
     });
   });
 
-  router.post("/", async (req, res) => {
+  router.post("/", verifyToken, async (req, res) => {
     try {
       const {
         User,
@@ -49,7 +50,7 @@ module.exports = (function () {
     }
   });
 
-  router.put("/:OrderId", (req, res) => {
+  router.put("/:OrderId", verifyToken, (req, res) => {
     try {
       const obj = OrdersSchema.findById({ _id: req.params.OrderId });
       const BodyObject = req.body;

@@ -1,12 +1,13 @@
+const verifyToken = require("../auth");
 module.exports = (function () {
   let route = require("express").Router();
   const Product_Review_Schema = require("../Schema/ProductReviews");
-  route.get("/:Productid", (req, res) => {
+  route.get("/:Productid", verifyToken, (req, res) => {
     Product_Review_Schema.findById(req.params.Productid).then((AllReviews) => {
       res.json(AllReviews);
     });
   });
-  route.get("/", (req, res) => {
+  route.get("/", verifyToken, (req, res) => {
     try {
       Product_Review_Schema.find().then((All_Product_Reviews) => {
         res.status(200).json(All_Product_Reviews);
@@ -15,7 +16,7 @@ module.exports = (function () {
       res.status(500).json(e);
     }
   });
-  route.post("/", async (req, res) => {
+  route.post("/", verifyToken, async (req, res) => {
     try {
       const {
         User,

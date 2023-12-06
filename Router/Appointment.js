@@ -1,9 +1,10 @@
+const verifyToken = require("../auth");
 module.exports = (function () {
   const AppointmentsSchema = require("../Schema/Appointments");
   ("use strict");
   let route = require("express").Router();
 
-  route.get("/:Userid", (req, res) => {
+  route.get("/:Userid", verifyToken, (req, res) => {
     try {
       AppointmentsSchema.find({ user: req.params.Userid }).then(
         (UserAppointments) => {
@@ -14,7 +15,7 @@ module.exports = (function () {
       res.status(500).json(e);
     }
   });
-  route.get("/", (req, res) => {
+  route.get("/", verifyToken, (req, res) => {
     try {
       AppointmentsSchema.find().then((ShowAllAppointments) => {
         res.status(200).json(ShowAllAppointments);
@@ -24,7 +25,7 @@ module.exports = (function () {
     }
   });
 
-  route.post("/", async (req, res) => {
+  route.post("/", verifyToken, async (req, res) => {
     try {
       const { user, FullName, Phone, Email, date, Time, Message, img } =
         req.body;
