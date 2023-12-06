@@ -4,7 +4,7 @@ const verifyToken = (req, res, next) => {
   const token = req.headers["authorization"];
 
   if (!token) {
-    return res.status(404).json({ error: "Unauthorized: Token not provided" });
+    return res.status(401).json({ error: "Unauthorized: Token not provided" });
   }
 
   jwt.verify(token, process.env.secretKey, (err, decoded) => {
