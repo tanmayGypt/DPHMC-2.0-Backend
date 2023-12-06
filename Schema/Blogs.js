@@ -6,7 +6,7 @@ const blogs = {
     required: true,
   },
   Date: {
-    type: Date,
+    type: String,
     default: Date.now,
   },
   description: {
@@ -15,7 +15,7 @@ const blogs = {
   },
   imageUrl: {
     type: String,
-    default: null,
+    default: "",
   },
   User: {
     type: ObjectId,

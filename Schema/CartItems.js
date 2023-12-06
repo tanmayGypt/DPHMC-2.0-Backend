@@ -10,7 +10,6 @@ const cartItems = {
   Quantity: {
     type: Number,
     require: true,
-    default: 1,
   },
   Shipping_Charges: {
     type: Number,

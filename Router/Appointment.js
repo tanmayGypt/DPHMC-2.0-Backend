@@ -26,7 +26,8 @@ module.exports = (function () {
 
   route.post("/", async (req, res) => {
     try {
-      const { user, FullName, Phone, Email, date, Time, Message } = req.body;
+      const { user, FullName, Phone, Email, date, Time, Message, img } =
+        req.body;
 
       const doc = new AppointmentsSchema({
         user,
@@ -41,6 +42,7 @@ module.exports = (function () {
       const savedObject = await doc.save();
       res.status(200).json(savedObject);
     } catch (error) {
+      console.log(error);
       res.status(500).json(error);
     }
   });

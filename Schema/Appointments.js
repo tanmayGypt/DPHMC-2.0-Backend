@@ -7,18 +7,14 @@ const Appointments = {
     require: true,
   },
   Phone: {
-    type: Number,
+    type: String,
     require: true,
   },
   Email: { type: String, trim: true, require: true },
-  date: { type: Date, default: Date.now },
+  date: { type: String, default: Date.now },
   Time: String,
   Message: String,
   Mobile_OTP_Verified: {
-    type: Boolean,
-    default: false,
-  },
-  Email_OTP_Verified: {
     type: Boolean,
     default: false,
   },
