@@ -15,7 +15,7 @@ module.exports = (function () {
       res.status(500).json(e);
     }
   });
-  route.get("/", verifyToken, (req, res) => {
+  route.get("/", (req, res) => {
     try {
       AppointmentsSchema.find().then((ShowAllAppointments) => {
         res.status(200).json(ShowAllAppointments);

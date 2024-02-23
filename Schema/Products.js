@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Product = {
-  product_image: [],
-  product_id: {
+  product_image: {
     type: String,
     require: true,
     unique: true,
@@ -10,6 +9,10 @@ const Product = {
     type: String,
     require: true,
     unique: false,
+  },
+  Product_descripton: {
+    type: String,
+    require: true,
   },
   Date: { type: Date, default: Date.now },
   price: {
